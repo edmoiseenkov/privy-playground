@@ -18,7 +18,7 @@ export const Providers: React.FC<ProvidersProps> = (props) => {
   return (
     <CacheProvider>
       <ChakraProvider>
-        <PrivyProvider appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID}>
+        <PrivyProvider appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID ?? ''}>
           <QueryClientProvider client={queryClient}>
             {children}
           </QueryClientProvider>
