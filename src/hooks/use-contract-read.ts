@@ -14,15 +14,29 @@ interface IUsePrepareContractReadOptions  {
 export const useContractRead = (options: IUsePrepareContractReadOptions) => {
   const { address, abi, functionName, args = [], enabled = true, onSuccess } = options;
 
-  const { user, getEthersProvider } = usePrivy();
-
-  const provider = getEthersProvider();
+  const { user, getEthersProvider, signMessage, walletConnectors } = usePrivy();
 
   return useQuery({
     retry: false,
-    enabled: enabled && !!provider && !!user?.wallet?.address,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+    enabled: enabled && !!user?.wallet?.address,
     queryKey: [address, functionName, args],
     queryFn: async () => {
+
+      await signMessage('hello world');
+
+      // @ts-ignore
+      const embeddedWallet = walletConnectors?.walletConnectors?.find((wallet) => wallet.walletType === 'embedded');
+      await embeddedWallet.connect({showPrompt: false, chainId: 0x66EED});
+
+      await walletConnectors?.setActiveWallet(embeddedWallet.address);
+
+      console.log(embeddedWallet.chain);
+
+      const provider = getEthersProvider();
+
       if (!provider || !user?.wallet?.address) {
         return;
       }
