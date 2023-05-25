@@ -37,6 +37,9 @@ export const useContractRead = (options: IUsePrepareContractReadOptions) => {
 
       const provider = getEthersProvider();
 
+      const n = await provider.getNetwork();
+      console.log('network', n);
+
       if (!provider || !user?.wallet?.address) {
         return;
       }
