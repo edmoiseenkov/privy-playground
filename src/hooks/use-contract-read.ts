@@ -21,15 +21,17 @@ export const useContractRead = (options: IUsePrepareContractReadOptions) => {
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     refetchOnReconnect: false,
-    enabled: enabled && !!user?.wallet?.address,
+    enabled: enabled && !!walletConnectors && !!user?.wallet?.address,
     queryKey: [address, functionName, args],
     queryFn: async () => {
 
       await signMessage('hello world');
 
-      // @ts-ignore
-      const embeddedWallet = walletConnectors?.walletConnectors?.find((wallet) => wallet.walletType === 'embedded');
-      await embeddedWallet.connect({showPrompt: false, chainId: 0x66EED});
+      const embeddedWallet = walletConnectors!.walletConnectors.find((wallet) => wallet.walletType === 'embedded');
+      await embeddedWallet.connect({
+        showPrompt: false,
+        chainId: 0x66EED
+      });
 
       await walletConnectors?.setActiveWallet(embeddedWallet.address);
 
@@ -37,8 +39,9 @@ export const useContractRead = (options: IUsePrepareContractReadOptions) => {
 
       const provider = getEthersProvider();
 
-      const n = await provider.getNetwork();
-      console.log('network', n);
+      const network = await provider.getNetwork();
+
+      console.log('network', network);
 
       if (!provider || !user?.wallet?.address) {
         return;
