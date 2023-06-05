@@ -27,15 +27,18 @@ export const useContractRead = (options: IUsePrepareContractReadOptions) => {
 
       await signMessage('hello world');
 
-      const embeddedWallet = walletConnectors!.walletConnectors.find((wallet) => wallet.walletType === 'embedded');
+      const embeddedWallet = walletConnectors!.walletConnectors.find((wallet) => wallet.walletClientType === 'privy');
+
+      console.log('embeddedWallet', embeddedWallet)
+
       await embeddedWallet!.connect({
         showPrompt: false,
         chainId: 0x66EED
       });
 
-      await walletConnectors?.setActiveWallet(embeddedWallet!.address);
+      await walletConnectors?.setActiveWallet(embeddedWallet.wallets[0]!.address);
 
-      console.log(embeddedWallet!.chain);
+      console.log(embeddedWallet);
 
       const provider = getEthersProvider();
 
