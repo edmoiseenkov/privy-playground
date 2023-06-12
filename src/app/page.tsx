@@ -128,7 +128,11 @@ export default function Home() {
             w={'fit-content'}
             isDisabled={!amount || hasEnoughAllowance}
             isLoading={isApproving}
-            onClick={() => approve([XEENON_CONTRACT_ADDRESS, 1])}
+            onClick={() => {
+              const amountInWei = utils.parseUnits(`${amount}`).toString();
+              console.log('amountInWei', amountInWei);
+              approve([XEENON_CONTRACT_ADDRESS, amountInWei])
+            }}
           >Approve</Button>
 
           <Button
