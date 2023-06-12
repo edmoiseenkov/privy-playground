@@ -8,6 +8,7 @@ import { utils } from 'ethers';
 
 import { useContractRead } from '@/hooks/use-contract-read';
 import ERC20 from '@/ERC20.json';
+import XeenonABI from '@/Xeenon.json';
 import { useContractWrite } from '@/hooks/use-contract-write';
 
 export default function Home() {
@@ -32,6 +33,15 @@ export default function Home() {
     functionName: 'approve',
   })
 
+  const {
+    write: deposit,
+    isLoading: isDepositing,
+  } = useContractWrite({
+    abi: XeenonABI.abi,
+    address: '0x82095Bf9586FF437B1f3915509E27Fdf191814f8',
+    functionName: 'deposit',
+  })
+
   const formattedUserDAI = useMemo(() => {
     if (!userDAI) {
       return 0;
@@ -53,6 +63,12 @@ export default function Home() {
           isLoading={isApproving}
           onClick={() => approve(['0x82095Bf9586FF437B1f3915509E27Fdf191814f8', 1])}
         >Approve</Button>
+
+        <Button
+          w={'fit-content'}
+          isLoading={isDepositing}
+          onClick={() => deposit([1])}
+        >Deposit</Button>
 
         <Text>
           <Box as={'span' as any} fontWeight={700}>DAI Balance: </Box>
