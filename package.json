@@ -14,7 +14,7 @@
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
     "@monaco-editor/react": "^4.5.1",
-    "@privy-io/react-auth": "^1.26.2",
+    "@privy-io/react-auth": "1.27.0",
     "@types/node": "20.2.3",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
@@ -23,8 +23,8 @@
     "ethers": "^5.7.2",
     "framer-motion": "^10.12.12",
     "next": "13.4.3",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-query": "^3.39.3",
     "typescript": "5.0.4"
   }
