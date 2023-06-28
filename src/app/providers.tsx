@@ -18,7 +18,12 @@ export const Providers: React.FC<ProvidersProps> = (props) => {
   return (
     <CacheProvider>
       <ChakraProvider>
-        <PrivyProvider appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID ?? ''}>
+        <PrivyProvider
+          appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID ?? ''}
+          config={{
+            walletConnectCloudProjectId: `${process.env.NEXT_PUBLIC_WALLET_CONNECT_CLOUD_PROJECT_ID}`,
+          }}
+        >
           <QueryClientProvider client={queryClient}>
             {children}
           </QueryClientProvider>
